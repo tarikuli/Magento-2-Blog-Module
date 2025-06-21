@@ -1,0 +1,195 @@
+/*.related-products-section {*/
+/*    margin-top: 30px;*/
+/*    position: relative;*/
+/*}*/
+
+/*.related-products-title {*/
+/*    font-size: 24px;*/
+/*    font-weight: bold;*/
+/*    margin-bottom: 20px;*/
+/*}*/
+
+/*.related-products-carousel {*/
+/*    position: relative;*/
+/*    overflow: hidden;*/
+/*}*/
+
+/*.product-carousel {*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    transition: transform 0.5s ease;*/
+/*}*/
+
+/*.product-item {*/
+/*    flex: 0 0 auto;*/
+/*    width: 300px;*/
+/*    border: 1px solid #ccc;*/
+/*    border-radius: 5px;*/
+/*    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);*/
+/*    overflow: hidden;*/
+/*    margin: 0 10px; !* Adjust margin as needed *!*/
+/*}*/
+
+/*.product-link {*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    text-decoration: none;*/
+/*    color: inherit;*/
+/*}*/
+
+/*.product-image {*/
+/*    width: 100%;*/
+/*    overflow: hidden;*/
+/*}*/
+
+/*.product-image img {*/
+/*    width: 100%;*/
+/*    height: auto;*/
+/*    display: block;*/
+/*}*/
+
+/*.product-details {*/
+/*    padding: 15px;*/
+/*}*/
+
+/*.product-name {*/
+/*    font-size: 18px;*/
+/*    margin-bottom: 10px;*/
+/*    font-weight: bold;*/
+/*}*/
+
+/*.sw-simple-description {*/
+/*    font-size: 14px;*/
+/*    color: #666;*/
+/*    margin-bottom: 40px;*/
+/*}*/
+
+/*.price {*/
+/*    font-size: 16px;*/
+/*    font-weight: bold;*/
+/*}*/
+
+/*.shop-now-btn {*/
+/*    background-color: #333;*/
+/*    color: #fff;*/
+/*    padding: 8px 15px;*/
+/*    border: none;*/
+/*    border-radius: 5px;*/
+/*    cursor: pointer;*/
+/*    transition: background-color 0.3s;*/
+/*}*/
+
+/*.shop-now-btn:hover {*/
+/*    background-color: #555;*/
+/*}*/
+
+/*.carousel-buttons {*/
+/*    position: absolute;*/
+/*    top: 0;*/
+/*    right: 0;*/
+/*    margin-top: 0; !* Adjust top margin as needed *!*/
+/*}*/
+
+/*!* Style for the arrows *!*/
+/*.prev-btn, .next-btn {*/
+/*    background-color: transparent;*/
+/*    border: none;*/
+/*    cursor: pointer;*/
+/*    transition: color 0.3s;*/
+/*    font-size: 24px;*/
+/*}*/
+
+/*!* Style for the arrow icons *!*/
+/*.prev-btn i, .next-btn i {*/
+/*    color: #333; !* Adjust arrow color *!*/
+/*}*/
+
+/*!* Hover effect *!*/
+/*.prev-btn, .next-btn {*/
+/*    background-color: rgba(0, 0, 0, 0.1);*/
+/*}*/
+
+/*.prev-btn:hover i, .next-btn:hover i {*/
+/*    color: #555; !* Adjust arrow color on hover *!*/
+/*}*/
+/*.special-price {*/
+/*    font-size: 16px;*/
+/*    font-weight: bold;*/
+/*    color: #f18c00 !important; !* Green color for special price *!*/
+/*}*/
+
+/*.old-price {*/
+/*    font-size: 14px;*/
+/*    text-decoration: line-through;*/
+/*    color: #999; !* Gray color for old price *!*/
+/*}*/
+
+/*.price, .old-price, .special-price {*/
+/*    margin-bottom: 5px;*/
+/*}*/
+/*.price {*/
+/*    margin-bottom: 5px;*/
+/*    display: flex; !* Use flexbox *!*/
+/*    align-items: center;*/
+/*    font-family: Arial, sans-serif;*/
+/*    font-size: 16px;*/
+/*}*/
+
+
+/*.price del {*/
+/*    margin-right: 10px; !* Add space between main price and special price *!*/
+/*}*/
+/*!*Related Post Section*!*/
+
+/*.latest-posts-section {*/
+/*    margin-top: 30px;*/
+/*}*/
+
+/*.posts-container {*/
+/*    display: flex;*/
+/*    flex-wrap: wrap;*/
+/*    gap: 20px;*/
+/*}*/
+
+/*.post-box {*/
+/*    width: calc(25% - 20px); !* Adjust the width as needed *!*/
+/*    background-color: #f9f9f9;*/
+/*    border: 1px solid #ddd;*/
+/*    padding: 20px;*/
+/*    box-sizing: border-box;*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    grid-gap: 30px;*/
+/*}*/
+
+/*.post-box img {*/
+/*    width: 100%;*/
+/*    height: auto;*/
+/*    margin-bottom: 15px;*/
+/*}*/
+
+/*.post-details h3 {*/
+/*    font-size: 18px;*/
+/*    margin-bottom: 10px;*/
+/*}*/
+
+/*.post-details p {*/
+/*    font-size: 14px;*/
+/*    color: #666;*/
+/*    margin-bottom: 10px;*/
+/*}*/
+
+/*.post-details article {*/
+/*    font-size: 14px;*/
+/*    line-height: 1.5;*/
+/*}*/
+/*.blog-link {*/
+/*    margin-top: 30px;*/
+/*    border: none;*/
+/*    cursor: pointer;*/
+/*    transition: background-color 0.3s;*/
+/*    padding: 10px 35px;*/
+/*    border-radius: 25px;*/
+/*    font-weight: 600;*/
+/*    width: 145px;*/
+/*}*/

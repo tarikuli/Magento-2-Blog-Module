@@ -1,0 +1,86 @@
+<?php
+/** @var Studio3Marketing\Magento2Blog\Block\Index $block */
+// Initialize $categoryName variable
+$categoryName = $block->getData('categoryName') ?? '';
+// Fetch the current page from the query string, default to 1 if not present
+$currentPage = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$limit = $block->getPostsPerPageLimit();
+$offset = ($currentPage - 1) * $limit;
+
+// Check if we're on a category page
+if ($categoryName) {
+//    echo "<pre>";
+//    print_r($categoryName);
+//    echo "</pre>";
+//    exit();
+    // Fetch posts by category
+    $blogPosts = $block->fetchBlogIndexPostsByCategory($categoryName, $limit, $offset);
+//    echo "<pre>";
+//    print_r($blogPosts['data']['_allArticlesMeta']['count']);
+//    echo "</pre>";
+//    exit();
+
+//    $totalPosts = $block->getTotalPosts($categoryName);
+    $totalPosts = $blogPosts['data']['_allArticlesMeta']['count'];
+} else {
+        echo "<pre>";
+        print_r($categoryName);
+        echo "</pre>";
+        exit();
+    // Fetch all posts for the homepage
+    $blogPosts = $block->fetchBlogIndexPosts($limit, $offset);
+    $totalPosts = $block->getTotalPosts();
+}
+
+// Calculate total pages
+$totalPages = ceil($totalPosts / $limit);
+?>
+<h1 class="category-title"><?= $categoryName ? 'Category: ' . htmlspecialchars($categoryName) : 'All Blog Posts' ?></h1>
+<?php
+if (!empty($blogPosts['data'])) {
+    $allArticles = array_reverse($blogPosts['data']['allArticles']);
+    foreach ($allArticles as $key => $post) {
+//        echo "<pre>";
+//        print_r($post);
+//        echo "</pre>";
+//        exit();
+
+        $_articleLink = $block->getPostLink($post['id'], $post['slug']);
+        ?>
+    <div class="blog-post">
+        <?php if (!empty($post['publishedDate'])): ?>
+            <p class="published-date"><?= date("F j, Y", strtotime($post['publishedDate']) ) ?></p>
+        <?php else: ?>
+            <p class="published-date"><?= date("F j, Y", strtotime($post['_publishedAt']) ) ?></p>
+        <?php endif; ?>
+    <h2 class="blog-title"><?= htmlspecialchars($post['title'] ?? '') ?></h2>
+        <a class="blog-image" href="<?= $_articleLink ?>">
+            <img src="<?= $post['featuredImage']['url'] ?>" alt="<?= htmlspecialchars($post['featuredImage']['alt'] ?? '') ?>">
+        </a>
+        <article>
+            <?= htmlspecialchars(substr(strip_tags($post['content'] ?? ''), 0, 200)) . "..." ?>
+        </article>
+        <a class="blog-link" href="<?= $_articleLink ?>">Read Now</a></h4>
+    </div>
+        <?php
+    }
+} else {
+    echo '<p>No posts found for this category.</p>';
+}
+?>
+
+<?php if ($totalPages > 1): // Only show pagination if there's more than one page ?>
+    <div class="pagination">
+        <?php if ($currentPage > 1): ?>
+            <a class="previous-btn" href="?page=<?= $currentPage - 1 ?>&categoryName=<?= htmlspecialchars($categoryName) ?>">&laquo; Previous</a>
+        <?php endif; ?>
+
+        <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+            <a href="?page=<?= $i ?>&categoryName=<?= htmlspecialchars($categoryName) ?>"<?= $i == $currentPage ? ' class="active"' : '' ?>><?= $i ?></a>
+        <?php endfor; ?>
+
+        <?php if ($currentPage < $totalPages): ?>
+            <a class="next-btn" href="?page=<?= $currentPage + 1 ?>&categoryName=<?= htmlspecialchars($categoryName) ?>">Next &raquo;</a>
+        <?php endif; ?>
+    </div>
+<?php endif; ?>

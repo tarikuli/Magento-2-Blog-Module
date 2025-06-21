@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="studio3marketing" translate="label" sortOrder="10">
+            <label>Studio3Marketing</label>
+        </tab>
+        <section id="magento2_blog" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Magento 2 Blog Api</label>
+            <tab>studio3marketing</tab>
+            <resource>Studio3Marketing_Magento2Blog::config_api</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General Settings</label>
+                <field id="api_url" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>API URL</label>
+                    <validate>required-entry</validate>
+                    <comment><![CDATA[Enter the base URL of the API, e.g., https://site-api.datocms.com/]]></comment>
+                </field>
+                <field id="api_key" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>API Key</label>
+                    <validate>required-entry</validate>
+                    <comment><![CDATA[Enter the Key  of the API, e.g., njf5u74778775e7a1ce456644]]></comment>
+                </field>
+                <field id="posts_per_page_limit" translate="label" type="text" sortOrder="15" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Posts Per Page Limit</label>
+                    <validate>required-entry validate-digits</validate>
+                    <comment>Enter the limit of posts to display per page.</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

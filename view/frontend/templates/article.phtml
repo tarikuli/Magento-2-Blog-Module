@@ -1,0 +1,195 @@
+<?php
+use Magento\Framework\App\Action\Action;
+
+/* @var $block Studio3Marketing\SegwayBlog\Block\Article */
+
+$articleData = $block->getData('articleData');
+$post = $articleData['data'];
+$featureImage = $block->fetchFeatureImage($post['attributes']['featured_image']['upload_id']);
+
+//$relatedProductsSKUs = explode(',', $post['attributes']['featured_product_sku']);
+$relatedProductsSKUs = $post['attributes']['featured_product_sku'];
+
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$productRepository = $objectManager->get('\Magento\Catalog\Model\ProductRepository');
+$productImageHelper = $objectManager->get('\Magento\Catalog\Helper\Image');
+
+?>
+<div class="blog-post">
+
+    <H1 class="blog-title"><?= $post['attributes']['title'] ?></H1>
+
+    <?php if (!empty($post['attributes']['published_date'])): ?>
+        <p class="published-date"><?= date("F j, Y", strtotime($post['attributes']['published_date']) ) ?></p>
+    <?php else: ?>
+        <p class="published-date"><?= date("F j, Y", strtotime($post['meta']['published_at']) ) ?></p>
+    <?php endif; ?>
+
+    <!-- AddToAny BEGIN -->
+    <div class="a2a_kit a2a_kit_size_32 a2a_default_style">
+        <a class="a2a_dd" href="https://www.addtoany.com/share"></a>
+        <a class="a2a_button_facebook"></a>
+        <a class="a2a_button_x"></a>
+        <a class="a2a_button_pinterest"></a>
+        <a class="a2a_button_reddit"></a>
+        <a class="a2a_button_linkedin"></a>
+        <a class="a2a_button_email"></a>
+    </div>
+    <script async src="https://static.addtoany.com/menu/page.js"></script>
+    <!-- AddToAny END -->
+
+    <?php if(!empty($featureImage)): ?>
+        <div class="blog-image">
+            <img src="<?= $featureImage['attributes']['url']?>" alt="<?= $post['attributes']['featured_image']['alt']?? "" ?>" >
+        </div>
+    <?php endif; ?>
+
+    <article>
+        <?= $post['attributes']['content'] ?>
+    </article>
+</div>
+
+<!-------------- Related Blog Posts Slider --------------------------->
+<?php
+/** @var \Studio3Marketing\SegwayBlog\ViewModel\ProductCarousel $viewModel */
+/** @var \Magento\CatalogWidget\Block\Product\ProductsList $block */
+
+$skus = "BUNDLE-AA.10.14.02.0002,BUNDLE-AA.00.0011.17,CONFIG-AA.00.0010.99";
+//$viewModel = $block->getViewModel();
+$viewModel = $block->getData('view_model');
+$products = $viewModel->getProductBySkuCollection($relatedProductsSKUs);
+////$products = $block->getProductCarouselViewModel()->getProductBySkuCollection($skus);
+//$viewModel->jdbg(__LINE__, count($products));
+//exit();
+?>
+
+<?php if (count($products) > 0) : ?>
+    <?php
+    $type = 'widget-product-carousel';
+    $image = 'new_products_content_widget_grid';
+    $image_overlay = 'products_content_widget_grid_overlay';
+//    $items = $block->getProductCollection()->addAttributeToSelect('overlay_image')->getItems();
+
+    $items = $products;
+    $showWishlist = false;
+    $showCompare = false;
+    $showCart = false;
+    $showShopNow = true;
+    $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
+    ?>
+<div class="featured-products-section">
+<h2 class="featured-products-title" data-content-type="heading" data-appearance="default" data-element="main">Featured Products</h2>
+        <ol class="products list items product-items blog-featured-products">
+            <?php $iterator = 1; ?>
+            <?php foreach ($items as $_item) : ?>
+                <?= /* @noEscape */
+                ($iterator++ == 1) ? '<li class="item product product-item">' : '</li><li class=" item product product-item">' ?>
+                <div class="product-item-info <?php if (($_item->getPrice() - $_item->getFinalPrice()) > 0) {?> sale-price<?php } ?>" id="product-item-info_<?= $_item->getId() ?>">
+                    <?php if (($_item->getPrice() - $_item->getFinalPrice()) > 0) {
+                        $saving = $_item->getPrice() - $_item->getFinalPrice();
+                        $saving = $this->helper('Magento\Framework\Pricing\Helper\Data')->currency($saving, true, false);
+                        $saving = explode('.', $saving); ?>
+                        <div class="saving" style="display: none;">
+                            <span> Save </br><?= $block->escapeHtml($saving[0]) ?></span>
+                        </div>
+                        <?php
+                    } ?>
+
+                    <div class="product-media">
+                        <a href="<?= $block->escapeUrl($viewModel->getProductUrl($_item)) ?>" class="product photo product-item-photo">
+                            <?= $viewModel->getImage($_item, $image) ?>
+                        </a>
+
+                        <?php if ($_item->getData('overlay_image')): ?>
+                        <span class="product-item-photo overlay-image">
+                            <img src="<?= $viewModel->getImageUrl($_item, $image_overlay) ?>" loading="lazy">
+                       </span>
+                        <?php endif; ?>
+                    </div>
+
+                    <div class="product details product-item-details">
+                        <strong class="product name product-item-name">
+                            <a title="<?= $block->escapeHtml($_item->getName()) ?>"
+                               href="<?= $block->escapeUrl($viewModel->getProductUrl($_item)) ?>"
+                               class="product-item-link">
+                                <?= $block->escapeHtml($_item->getName()) ?>
+                            </a>
+                        </strong>
+
+                        <p class="product shot-description product-item-shot-description"><?= $block->escapeHtml($_item->getSwSimpleDescription()) ?></p>
+
+                        <?= $viewModel->getProductPriceHtml($_item, $type) ?>
+
+                        <?= $viewModel->getProductDetailsHtml($_item) ?>
+
+                        <?php if ($showShopNow) : ?>
+                            <div class="product-item-inner">
+                                <div class="product-item-actions">
+                                    <?php if ($showShopNow) : ?>
+                                        <div class="actions-primary">
+                                            <a href="<?= $block->escapeUrl($viewModel->getProductUrl($_item)) ?>" class="btn">
+                                                <?= $block->escapeHtml(__('Shop Now')) ?>
+                                            </a>
+                                        </div>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                </div>
+                <?= ($iterator == count($items) + 1) ? '</li>' : '' ?>
+            <?php endforeach ?>
+        </ol>
+</div>
+<?php endif; ?>
+<!-------------- Related Blog Posts Slider --------------------------->
+
+<?php
+
+$relatedBlogPosts = $block->getLatestBlogPosts(5, $post['attributes']['categories'] ?? '');
+?>
+<?php if (!empty($relatedBlogPosts)): ?>
+    <div class="related-posts-section">
+        <h2>Related Posts</h2>
+        <ol class="products list items product-items posts-container">
+            <?php foreach ($relatedBlogPosts as $relatedPost): ?>
+                <?php if (htmlspecialchars($relatedPost['attributes']['title']) != $post['attributes']['title']){ ?>
+                    <li class="post-box">
+                        <?php
+                        $_articleLink = $block->getPostLink($relatedPost['id'], $relatedPost['attributes']['slug']);
+                        ?>
+                        <a class="blog-link-wrapper" href="<?= $_articleLink ?>">
+                        <?php
+                        // Fetch the image URL using upload_id
+                        $imageData = $block->fetchFeatureImage($relatedPost['attributes']['featured_image']['upload_id']);
+                        $imageUrl = !empty($imageData['attributes']['url']) ? $imageData['attributes']['url'] : '';
+                        ?>
+                        <?php if (!empty($imageUrl)): ?>
+                            <div class="post-image">
+                                <img src="<?= $imageUrl ?>" alt="<?= htmlspecialchars($relatedPost['attributes']['title']) ?>">
+                            </div>
+                        <?php else: ?>
+                            <p>No image available.</p>
+                        <?php endif; ?>
+                        <?php if (!empty($relatedPost['attributes']['updated_at'])): ?>
+                            <p class="published-date"><?= date("F j, Y", strtotime($relatedPost['attributes']['updated_at'])) ?></p>
+                        <?php else: ?>
+                            <p class="published-date"><?= date("F j, Y", strtotime($relatedPost['meta']['published_at'])) ?></p>
+                        <?php endif; ?>
+                        <?php if (!empty($relatedPost['attributes']['title'])): ?>
+                            <h3><?= htmlspecialchars($relatedPost['attributes']['title']) ?></h3>
+                        <?php endif; ?>
+                        <?php if (!empty($relatedPost['attributes']['content'])): ?>
+                            <article><?= htmlspecialchars(substr(strip_tags($relatedPost['attributes']['content']), 0, 200)) . "..." ?></article>
+                        <?php endif; ?>
+                        </a>
+    <!--                    <a class="blog-link" href="--><?php //= $_articleLink ?><!--">Read Now</a>-->
+                    </li>
+                <?php } ?>
+            <?php endforeach; ?>
+        </ol>
+    </div>
+
+<?php endif; ?>
+
+<!-- If any reference to SegwayBlog, update to Magento2Blog -->

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Studio3Marketing_Magento2Blog::css/related-products.css" />
+        <script src="Studio3Marketing_Magento2Blog::js/related-products.js" />
+    </head>
+
+    <body>
+        <referenceBlock name="magento2blog.article">
+            <arguments>
+                <argument name="view_model" xsi:type="object">Studio3Marketing\Magento2Blog\ViewModel\ProductCarousel</argument>
+            </arguments>
+        </referenceBlock>
+    </body>
+
+</page>

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- If any reference to SegwayBlog, update to Magento2Blog -->
+    <type name="Studio3Marketing\Magento2Blog\Controller\Categoryblog\Category\Category">
+        <arguments>
+            <argument name="apiClient" xsi:type="object">Studio3Marketing\Magento2Blog\Model\ApiClient</argument>
+        </arguments>
+    </type>
+</config>

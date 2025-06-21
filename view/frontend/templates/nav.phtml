@@ -1,0 +1,12 @@
+<?php
+/* @var $block Studio3Marketing\Magento2Blog\Block\Categoryblog\Categoryblog */
+$fetchCategory = $block->fetchCategory();
+
+?>
+
+<h2 class="category-title">Categories</h2>
+<?php foreach ($fetchCategory as $category): ?>
+<p class="category-link"><a href="/blog/category/view/name/<?= str_replace(' ', '%20', $category) ?>"><?= ucwords($category) ?></a></a></p>
+<?php endforeach; ?>
+<p class="category-home-link"><a href="/blog/">View All</a></p>
+

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <block class="Studio3Marketing\Magento2Blog\Block\Article"
+                   name="magento2blog_article"
+                   template="Studio3Marketing_Magento2Blog::article.phtml"/>
+            <referenceBlock name="sidebar.additional" remove="true"/>
+        </referenceContainer>
+
+        <referenceBlock name="sidebar.main" >
+            <block class="Studio3Marketing\SegwayBlog\Block\Categoryblog\Categoryblog"
+                   name="segwayblog_nav"
+                   template="Studio3Marketing_SegwayBlog::nav.phtml"/>
+        </referenceBlock>
+
+    </body>
+</page>
